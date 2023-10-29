@@ -2,6 +2,9 @@ package Jogo;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 
 public class Player { // classe do player
@@ -9,14 +12,17 @@ public class Player { // classe do player
     private int dx, dy;
     private int altura, largura;
     private Image imagem;
+    private List <Tiro> tiros; // lista dos tiros
 
     public Player() { // onde o player vai começar
         this.x = 80;
         this.y = 80;
+        
+        tiros = new ArrayList<Tiro>();
     }
     
     public void load() { // carrega a imagem do player
-        ImageIcon referencia = new ImageIcon("files\\SpriteNave3.png");
+        ImageIcon referencia = new ImageIcon("files\\Nave.png");
         imagem = referencia.getImage();
 
         this.altura = imagem.getHeight(null);
@@ -28,9 +34,16 @@ public class Player { // classe do player
         y += dy;
     }
 
+    public void tiroJogador() { // cria um tiro
+        this.tiros.add(new Tiro(x + largura, y + (altura / 2)));
+    }
+
     public void keyPressed(KeyEvent tecla) { // verifica se alguma tecla foi pressionada
         int codigo = tecla.getKeyCode();
 
+        if (codigo == KeyEvent.VK_SPACE) {
+            tiroJogador();
+        }
         if (codigo == KeyEvent.VK_UP) {
             dy = -8;
         }
@@ -91,5 +104,9 @@ public class Player { // classe do player
 
     public Image getImagem() { // retorna a imagem do player
         return imagem;
+    }
+
+    public List<Tiro> getTiros() { // retorna a lista de tiros
+        return tiros;
     }
 }
