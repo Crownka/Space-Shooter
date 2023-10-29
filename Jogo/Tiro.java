@@ -9,8 +9,8 @@ public class Tiro {
     private int largura, altura; // tamanho do tiro
     private boolean isVisivel; // se o tiro está visivel ou não
 
-    private static final int LARGURA = 938; // até onde o tiro pode ir
-    private static int VELOCIDADE = 3; // velocidade do tiro
+    private static final int LARGURA = 990; // até onde o tiro pode ir
+    private static int VELOCIDADE = 7; // velocidade do tiro
 
     public Tiro(int x, int y) { // construtor do tiro
         this.x = x;
@@ -60,6 +60,6 @@ public class Tiro {
     }
 
     public Image getImagem() {
-        return null;
+        return imagem;
     }
 }

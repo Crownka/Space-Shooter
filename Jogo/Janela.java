@@ -7,7 +7,7 @@ public class Janela extends JFrame {
     public Janela() {
         add(new Fase());
         setTitle("Pew Pew Pew");
-        setSize(1024, 768);
+        setSize(1024, 728);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.setResizable(false);
