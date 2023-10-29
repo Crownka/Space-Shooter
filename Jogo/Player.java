@@ -1,3 +1,5 @@
+package Jogo;
+
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
@@ -17,8 +19,8 @@ public class Player { // classe do player
         ImageIcon referencia = new ImageIcon("files\\SpriteNave3.png");
         imagem = referencia.getImage();
 
-        altura = imagem.getHeight(null);
-        largura = imagem.getWidth(null);
+        this.altura = imagem.getHeight(null);
+        this.largura = imagem.getWidth(null);
     }
 
     public void update() { // atualiza a posição do player

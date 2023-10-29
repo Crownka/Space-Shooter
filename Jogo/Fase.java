@@ -1,5 +1,8 @@
+package Jogo;
+
 import java.awt.*;
 import javax.swing.*;
+
 import java.awt.event.*;
 
 public class Fase extends JPanel implements ActionListener { // classe da fase
