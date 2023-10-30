@@ -10,7 +10,7 @@ public class Tiro {
     private boolean isVisivel; // se o tiro está visivel ou não
 
     private static final int LARGURA = 990; // até onde o tiro pode ir
-    private static int VELOCIDADE = 7; // velocidade do tiro
+    private static int VELOCIDADE = 10; // velocidade do tiro
 
     public Tiro(int x, int y) { // construtor do tiro
         this.x = x;
