@@ -3,6 +3,10 @@ package Jogo;
 import java.util.List;
 import java.awt.*;
 import javax.swing.*;
+
+import Jogo.player.Player;
+import Jogo.player.Tiro;
+
 import java.awt.event.*;
 
 public class Fase extends JPanel implements ActionListener { // classe da fase

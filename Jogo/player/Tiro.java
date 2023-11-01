@@ -1,4 +1,5 @@
-package Jogo;
+package Jogo.player;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 

@@ -1,10 +1,9 @@
-package Jogo;
+package Jogo.player;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.ImageIcon;
 
 public class Player { // classe do player
