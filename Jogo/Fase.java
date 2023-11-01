@@ -1,11 +1,11 @@
 package Jogo;
 
 import java.util.List;
+import Jogo.player.Player;
 import java.awt.*;
+import Jogo.player.Tiro;
 import javax.swing.*;
 
-import Jogo.player.Player;
-import Jogo.player.Tiro;
 
 import java.awt.event.*;
 
