@@ -16,8 +16,8 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     private Timer timer; // velocidade do jogos
 
     public Fase() { // construtor da fase
-        setFocusable(true); // 
-        setDoubleBuffered(true); // 
+        setFocusable(true);
+        setDoubleBuffered(true);
 
         ImageIcon referencia = new ImageIcon("files\\Blackground.jpg");
         fundo = referencia.getImage();
