@@ -1,6 +1,9 @@
 package Jogo;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import Jogo.enemy.Enemy1;
 import Jogo.player.Player;
 import java.awt.*;
 import Jogo.player.Tiro;
@@ -14,6 +17,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     private Image fundo; // imagem de fundo
     private Player player; // objeto do player
     private Timer timer; // velocidade do jogos
+    private List<Enemy1> enemy1; // lista dos enemy1
 
     public Fase() { // construtor da fase
         setFocusable(true);
@@ -29,6 +33,19 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
         timer = new Timer(4, this); // cria o timer
         timer.start(); // inicia o timer
+
+        InitEnemy1(); // cria os enemy1 no construtor da fase
+    }
+
+    public void InitEnemy1() { // cria os enemy1
+        int coordenadas[] = new int[40];
+        enemy1 = new ArrayList<Enemy1>();
+
+        for (int i = 0; i < coordenadas.length; i++) { // loop que cria os enemy1
+            int x = (int) (Math.random() * 8000 + 1024); // posição aleatória
+            int y = (int) (Math.random() * 650 + 30); // posição aleatória
+            enemy1.add(new Enemy1(x, y)); // cria o enemy1
+        }
     }
     
     public void paint(Graphics g) { // desenha a fase
@@ -41,6 +58,12 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
             Tiro t = tiros.get(i);
             t.load();
             graficos.drawImage(t.getImagem(), t.getX(), t.getY(), this);
+        }
+
+        for (int i = 0; i < enemy1.size(); i++) { // loop que desenha os enemy1
+            Enemy1 in = enemy1.get(i);
+            in.load();
+            graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this); // desenha o enemy1
         }
 
         g.dispose();
@@ -57,6 +80,15 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
                 t.update();
             } else {
                 tiros.remove(i);
+            }
+        }
+
+        for (int i = 0; i < enemy1.size(); i++) { // loop que atualiza a posição dos enemy1
+            Enemy1 in = enemy1.get(i);
+            if (in.isVisivel()) {
+                in.update();
+            } else {
+                enemy1.remove(i);
             }
         }
 
