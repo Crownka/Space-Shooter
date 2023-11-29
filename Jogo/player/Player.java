@@ -1,6 +1,7 @@
 package Jogo.player;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +13,12 @@ public class Player { // classe do player
     private int altura, largura;
     private Image imagem;
     private List <Tiro> tiros; // lista dos tiros
+    private boolean isVisivel; // se o player está visivel ou não
 
     public Player() { // onde o player vai começar
         this.x = 80;
         this.y = 80;
+        isVisivel = true;
         
         tiros = new ArrayList<Tiro>();
     }
@@ -35,6 +38,10 @@ public class Player { // classe do player
 
     public void tiroJogador() { // cria um tiro
         this.tiros.add(new Tiro(x + largura, y + (altura / 2)));
+    }
+
+    public Rectangle getBounds() { // retorna o retangulo do player (para colisão)
+        return new Rectangle(x, y, largura, altura);
     }
 
     public void keyPressed(KeyEvent tecla) { // verifica se alguma tecla foi pressionada
@@ -92,6 +99,14 @@ public class Player { // classe do player
     }
 
     // getters
+
+    public boolean isVisivel() { // retorna se o player está visivel ou não
+        return isVisivel;
+    }
+
+    public void setVisivel(boolean isVisivel) { // seta se o player está visivel ou não
+        this.isVisivel = isVisivel;
+    }
 
     public int getX() { // retorna a posição x do player
         return x;

@@ -1,6 +1,8 @@
 package Jogo.enemy;
 
 import java.awt.Image;
+import java.awt.Rectangle;
+
 import javax.swing.ImageIcon;
 
 public class Enemy1 {
@@ -32,6 +34,10 @@ public class Enemy1 {
         //if (this.x > LARGURA) {
             //isVisivel = false;
         //}
+    }
+
+    public Rectangle getBounds() { // retorna o retangulo do tiro (para colisão)
+        return new Rectangle(x, y, largura, altura);
     }
 
     // getters
