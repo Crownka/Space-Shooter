@@ -18,6 +18,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     private Player player; // objeto do player
     private Timer timer; // velocidade do jogos
     private List<Enemy1> enemy1; // lista dos enemy1
+    private List<Estrelas> estrelas; // lista dos enemy1
     private boolean ingame; // se o jogo está rodando ou não
 
     public Fase() { // construtor da fase
@@ -36,6 +37,8 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
         timer.start(); // inicia o timer
 
         InitEnemy1(); // cria os enemy1 no construtor da fase
+        InitEstrelas(); // cria os estrelas no construtor da fase
+
         ingame = true; // o jogo está rodando
     }
 
@@ -49,12 +52,30 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
             enemy1.add(new Enemy1(x, y)); // cria o enemy1
         }
     }
+
+    public void InitEstrelas() {
+        int coordenadas[] = new int[40];
+        estrelas = new ArrayList<Estrelas>();
+
+        for (int i = 0; i < coordenadas.length; i++) { // loop que cria os estrelas
+            int x = (int) (Math.random() * 1050 + 1024); // posição aleatória
+            int y = (int) (Math.random() * 768 + 0); // posição aleatória
+            estrelas.add(new Estrelas(x, y)); // cria o estrelas
+        }
+    }
     
     public void paint(Graphics g) { // desenha a fase
         Graphics2D graficos = (Graphics2D) g;
         if (ingame == true) {
 
             graficos.drawImage(fundo, 0, 0, null); // desenha o fundo
+
+            for (int i = 0; i < estrelas.size(); i++) { // loop que desenha os estrelas
+                Estrelas st = estrelas.get(i);
+                st.load();
+                graficos.drawImage(st.getImagem(), st.getX(), st.getY(), this); // desenha o estrelas
+            }
+
             graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this); // desenha o player
     
             List<Tiro> tiros = player.getTiros();
@@ -79,7 +100,16 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
     @Override
     public void actionPerformed(ActionEvent e) { // atualiza a fase
-        player.update(); 
+        player.update();
+
+        for (int i = 0; i < estrelas.size(); i++) { // loop que atualiza a posição dos estrelas
+            Estrelas st = estrelas.get(i); 
+            if (st.isVisivel()) {
+                st.update();
+            } else {
+                estrelas.remove(i);
+            }
+        }
 
         List<Tiro> tiros = player.getTiros(); // Coloca lista dos tiros na fase
         for (int i = 0; i < tiros.size(); i++) { // loop que atualiza a posição dos tiros
