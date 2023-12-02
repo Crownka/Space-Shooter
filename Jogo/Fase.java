@@ -145,7 +145,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
             desenharVidas(g);
         } else {
-            ImageIcon fimJogo = new ImageIcon("files\\GameOver.png"); //
+            ImageIcon fimJogo = new ImageIcon("files\\GameOver.png");
             g.drawImage(fimJogo.getImage(), 0, 0, null);
         }
 
@@ -153,7 +153,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
         g.dispose();
     }
 
-    public void desenharVidas(Graphics g) {
+    public void desenharVidas(Graphics g) { // desenha as vidas
         for (Vida vida : vidas) {
             vida.paintComponent(g);
         }
