@@ -14,7 +14,7 @@ public class Estrelas {
     private boolean isVisivel; // se o Estrela está visivel ou não
 
     //private static final int LARGURA = 990; // até onde o Estrela pode ir
-    private static int VELOCIDADE = 10; // velocidade do Estrela
+    private static int VELOCIDADE = 20; // velocidade do Estrela
 
     public Estrelas(int x, int y) { // construtor do Estrela
         this.x = x;
