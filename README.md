@@ -19,4 +19,3 @@ A classe JPanel é uma classe Swing que é frequentemente usada para conter outr
 
 tive que ficar hora um tempinho pra entender como usar o JPanel(deixarei o Paint no código para caso precise)
 
-2 - 
