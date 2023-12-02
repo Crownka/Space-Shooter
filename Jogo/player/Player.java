@@ -13,6 +13,7 @@ public class Player { // classe do player
     private int altura, largura;
     private Image imagem;
     private List <Tiro> tiros; // lista dos tiros
+    private List <Vida> vidas; // lista das vidas
     private boolean isVisivel; // se o player está visivel ou não
 
     public Player() { // onde o player vai começar
@@ -21,6 +22,9 @@ public class Player { // classe do player
         isVisivel = true;
         
         tiros = new ArrayList<Tiro>();
+        vidas = new ArrayList<Vida>();
+
+        InitVidas(); // cria as vidas
     }
     
     public void load() { // carrega a imagem do player
@@ -38,6 +42,23 @@ public class Player { // classe do player
 
     public void tiroJogador() { // cria um tiro
         this.tiros.add(new Tiro(x + largura, y + (altura / 2)));
+    }
+
+    public void InitVidas() { // cria as vidas
+        int xInicial = 10;
+        int y = 10;
+        int espacamento = 30;
+
+        for (int i = 0; i < 3; i++) { // 3 vidas
+            Vida vida = new Vida(xInicial + i * espacamento, y);
+            vidas.add(vida);
+        }
+    }
+
+    public void removerVida() {
+        if (vidas.size() > 0) {
+            vidas.remove(vidas.size() - 1);
+        }
     }
 
     public Rectangle getBounds() { // retorna o retangulo do player (para colisão)
@@ -122,5 +143,11 @@ public class Player { // classe do player
 
     public List<Tiro> getTiros() { // retorna a lista de tiros
         return tiros;
+    }
+
+    public void setX(int i) {
+    }
+
+    public void setY(int i) {
     }
 }

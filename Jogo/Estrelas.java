@@ -1,7 +1,6 @@
 package Jogo;
 
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -10,7 +9,7 @@ public class Estrelas {
     
     private Image imagem; // imagem do Estrela
     private int x, y; // posição do Estrela
-    private int largura, altura; // tamanho do Estrela
+    private int largura, altura; // tamanho do Estrela (caso precise)
     private boolean isVisivel; // se o Estrela está visivel ou não
 
     //private static final int LARGURA = 990; // até onde o Estrela pode ir
