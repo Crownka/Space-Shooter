@@ -28,7 +28,7 @@ public class Player { // classe do player
     }
     
     public void load() { // carrega a imagem do player
-        ImageIcon referencia = new ImageIcon("files\\NavePlayer.png");
+        ImageIcon referencia = new ImageIcon("files\\navePlayer.png");
         imagem = referencia.getImage();
 
         this.altura = imagem.getHeight(null);

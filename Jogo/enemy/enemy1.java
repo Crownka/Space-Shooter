@@ -13,7 +13,7 @@ public class Enemy1 {
     private boolean isVisivel; // se o Enemy1 está visivel ou não
 
     //private static final int LARGURA = 990; // até onde o Enemy1 pode ir
-    private static int VELOCIDADE = 10; // velocidade do Enemy1
+    private static int VELOCIDADE = 8; // velocidade do Enemy1
 
     public Enemy1(int x, int y) { // construtor do Enemy1
         this.x = x;
@@ -22,7 +22,7 @@ public class Enemy1 {
     }
 
     public void load() { // carrega a imagem do Enemy1
-        ImageIcon referencia = new ImageIcon("files\\Enemy1.png");
+        ImageIcon referencia = new ImageIcon("files\\naveInimigo.png");
         imagem = referencia.getImage();
 
         this.largura = imagem.getWidth(null);
@@ -31,9 +31,9 @@ public class Enemy1 {
 
     public void update() { // atualiza a posição do Enemy1
         this.x -= VELOCIDADE;
-        //if (this.x > LARGURA) {
-            //isVisivel = false;
-        //}
+        if (this.x < 0) {
+            isVisivel = false;
+        }
     }
 
     public Rectangle getBounds() { // retorna o retangulo do tiro (para colisão)

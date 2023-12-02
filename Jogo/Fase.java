@@ -50,7 +50,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
         ingame = true; // o jogo está rodando
     }
-
+  
     public void InitVidas() { // cria as vidas
         int xInicial = 10;
         int y = 10;
@@ -63,7 +63,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     }
 
     public void InitEnemy1() { // cria os enemy1
-        int coordenadas[] = new int[40];
+        int coordenadas[] = new int[30];
         enemy1 = new ArrayList<Enemy1>();
 
         for (int i = 0; i < coordenadas.length; i++) { // loop que cria os enemy1
@@ -145,7 +145,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
             desenharVidas(g);
         } else {
-            ImageIcon fimJogo = new ImageIcon("files\\GameOver.png"); 
+            ImageIcon fimJogo = new ImageIcon("files\\GameOver.png"); //
             g.drawImage(fimJogo.getImage(), 0, 0, null);
         }
 
@@ -190,7 +190,17 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
             } else {
                 enemy1.remove(i);
             }
+        
+        
+            for (Iterator<Enemy1> iterator = enemy1.iterator(); iterator.hasNext();) { // loop que remove os enemy1 invisiveis
+                Enemy1 out = iterator.next();
+                if (!out.isVisivel()) {
+                iterator.remove();
+                }
+            }
+        
         }
+
         checkCollisions(); // chama a função que verifica as colisões
         repaint();
     }
