@@ -1,17 +1,16 @@
 package Jogo;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import Jogo.enemy.Enemy1;
 import Jogo.player.Player;
-import java.awt.*;
 import Jogo.player.Tiro;
 import Jogo.player.Vida;
 
 import javax.swing.*;
-
 
 import java.awt.event.*;
 
@@ -29,26 +28,29 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     public Fase() { // construtor da fase
         setFocusable(true);
         setDoubleBuffered(true);
-
+    
         ImageIcon referencia = new ImageIcon("files\\Blackground.jpg");
         fundo = referencia.getImage();
-
+    
         player = new Player(); // cria o player
         player.load(); // carrega a imagem do player
-
+    
         addKeyListener(new TecladoAdapter()); // adiciona o teclado
-
+    
         timer = new Timer(4, this); // cria o timer
         timer.start(); // inicia o timer
         
         vidas = new ArrayList<Vida>(); // cria a lista das vidas
+        enemy1 = new ArrayList<Enemy1>(); // inicializa a lista dos enemy1
         
         InitVidas(); // cria as vidas no construtor da fase
-        InitEnemy1(); // cria os enemy1 no construtor da fase
         InitEstrelas(); // cria os estrelas no construtor da fase
-
-
+    
         ingame = true; // o jogo está rodando
+    
+        for (int i = 0; i < 5; i++) { // cria inicialmente 5 inimigos
+            criarInimigo();
+        }
     }
   
     public void InitVidas() { // cria as vidas
@@ -56,21 +58,16 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
         int y = 10;
         int espacamento = 30;
 
-        for (int i = 0; i < 3; i++) { // 3 vidas
+        for (int i = 0; i < 10; i++) { // 3 vidas
             Vida vida = new Vida(xInicial + i * espacamento, y);
             vidas.add(vida);
         }
     }
 
-    public void InitEnemy1() { // cria os enemy1
-        int coordenadas[] = new int[30];
-        enemy1 = new ArrayList<Enemy1>();
-
-        for (int i = 0; i < coordenadas.length; i++) { // loop que cria os enemy1
-            int x = (int) (Math.random() * 8000 + 1024); // posição aleatória
-            int y = (int) (Math.random() * 650 + 30); // posição aleatória
-            enemy1.add(new Enemy1(x, y)); // cria o enemy1
-        }
+    private void criarInimigo() {
+        int x = (int) (Math.random() * 800 + 1024); // posição aleatória
+        int y = (int) (Math.random() * 650 + 30); // posição aleatória
+        enemy1.add(new Enemy1(x, y)); // cria o enemy1
     }
 
     public void InitEstrelas() {
@@ -159,51 +156,49 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
         }
     }
     
-
+    
     @Override
     public void actionPerformed(ActionEvent e) { // atualiza a fase
         player.update();
-
-        for (int i = 0; i < estrelas.size(); i++) { // loop que atualiza a posição dos estrelas
-            Estrelas st = estrelas.get(i); 
+    
+        for (int i = 0; i < estrelas.size(); i++) { // loop que atualiza os estrelas
+            Estrelas st = estrelas.get(i);
             if (st.isVisivel()) {
                 st.update();
             } else {
                 estrelas.remove(i);
             }
         }
-
-        List<Tiro> tiros = player.getTiros(); // Coloca lista dos tiros na fase
-        for (int i = 0; i < tiros.size(); i++) { // loop que atualiza a posição dos tiros
+    
+        List<Tiro> tiros = player.getTiros(); 
+        for (int i = 0; i < tiros.size(); i++) { // loop que atualiza os tiros
             Tiro t = tiros.get(i);
-            if (t.isVisivel()) { 
+            if (t.isVisivel()) {
                 t.update();
             } else {
                 tiros.remove(i);
             }
         }
-
-        for (int i = 0; i < enemy1.size(); i++) { // loop que atualiza a posição dos enemy1
-            Enemy1 in = enemy1.get(i);
+    
+        List<Enemy1> inimigosARemover = new ArrayList<>(); // lista dos enemy1 a remover
+        for (Enemy1 in : enemy1) {
             if (in.isVisivel()) {
                 in.update();
             } else {
-                enemy1.remove(i);
+                inimigosARemover.add(in);
             }
-        
-        
-            for (Iterator<Enemy1> iterator = enemy1.iterator(); iterator.hasNext();) { // loop que remove os enemy1 invisiveis
-                Enemy1 out = iterator.next();
-                if (!out.isVisivel()) {
-                iterator.remove();
-                }
-            }
-        
         }
-
-        checkCollisions(); // chama a função que verifica as colisões
+    
+        enemy1.removeAll(inimigosARemover);
+        for (int i = 0; i < inimigosARemover.size(); i++) { // loop que cria os enemy1
+            criarInimigo();
+        }
+    
+        checkCollisions();
         repaint();
     }
+
+    // tive que mudar o nome da função para checkCollisions, pois a função checkCollision já existe na classe Rectangle
 
     public void checkCollisions() { // verifica as colisões
         Rectangle formaNave = player.getBounds(); // retangulo do player
@@ -224,7 +219,6 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
                     player.setVisivel(true);
                     player.setX(80);
                     player.setY(80);
-                    InitEnemy1(); // Reinicia os inimigos
                 }
                 
 

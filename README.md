@@ -19,3 +19,6 @@ A classe JPanel é uma classe Swing que é frequentemente usada para conter outr
 
 tive que ficar hora um tempinho pra entender como usar o JPanel(deixarei o Paint no código para caso precise)
 
+
+
+2 - Para criar os inimigos, comecei fazendo uma lista fixa que era criada assim que a fase iniciava, vi que não ficava legal pois depois de um tempo os inimigos paravam de vir
