@@ -51,13 +51,31 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
             criarInimigo();
         }
     }
+
+    public void reiniciar() {       // Reinicialize todas as variáveis necessárias para reiniciar o jogo
+        vidas.clear();
+        enemy1.clear();
+        InitVidas();
+        InitEstrelas();
+        ingame = true;
+    
+        for (int i = 0; i < 5; i++) {
+            criarInimigo();
+        }
+    
+        player.setVisivel(true);
+        player.setX(80);
+        player.setY(80);
+    
+        repaint();
+    }
   
     public void InitVidas() { // cria as vidas
         int xInicial = 10;
         int y = 10;
         int espacamento = 30;
 
-        for (int i = 0; i < 10; i++) { // 3 vidas
+        for (int i = 0; i < 3; i++) { // 3 vidas
             Vida vida = new Vida(xInicial + i * espacamento, y);
             vidas.add(vida);
         }

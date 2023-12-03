@@ -3,6 +3,8 @@ package Jogo;
 import javax.swing.*;
 
 public class Janela extends JFrame {
+    private Fase fase;
+
     public Janela() {
         add(new Fase());
         setTitle("Pew Pew Pew");
@@ -16,3 +18,4 @@ public class Janela extends JFrame {
         new Janela();
     }
 }
+

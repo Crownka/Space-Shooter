@@ -35,9 +35,30 @@ public class Player { // classe do player
         this.largura = imagem.getWidth(null);
     }
 
-    public void update() { // atualiza a posição do player
+    private static final int VELOCIDADE_MAXIMA = 8;
+    private static final double AMORTECIMENTO = 1.5;
+
+    public void update() { 
+        // Aplica inércia
+        dx *= AMORTECIMENTO;
+        dy *= AMORTECIMENTO;
+
+        // Atualiza a posição do player
         x += dx;
         y += dy;
+
+        // Limita a velocidade máxima
+        if (dx > VELOCIDADE_MAXIMA) {
+            dx = VELOCIDADE_MAXIMA;
+        } else if (dx < -VELOCIDADE_MAXIMA) {
+            dx = -VELOCIDADE_MAXIMA;
+        }
+
+        if (dy > VELOCIDADE_MAXIMA) {
+            dy = VELOCIDADE_MAXIMA;
+        } else if (dy < -VELOCIDADE_MAXIMA) {
+            dy = -VELOCIDADE_MAXIMA;
+        }
     }
 
     public void tiroJogador() { // cria um tiro
@@ -49,13 +70,13 @@ public class Player { // classe do player
         int y = 10;
         int espacamento = 30;
 
-        for (int i = 0; i < 3; i++) { // 3 vidas
+        for (int i = 0; i < 5; i++) { // 3 vidas
             Vida vida = new Vida(xInicial + i * espacamento, y);
             vidas.add(vida);
         }
     }
 
-    public void removerVida() {
+    public void removerVida() { // remove uma vida
         if (vidas.size() > 0) {
             vidas.remove(vidas.size() - 1);
         }
@@ -72,32 +93,26 @@ public class Player { // classe do player
             tiroJogador();
         }
         if (codigo == KeyEvent.VK_UP) {
-            dy = -8;
+            dy = -6;
         }
         if (codigo == KeyEvent.VK_DOWN) {
-            dy = 8;
+            dy = 6;
         }
         if (codigo == KeyEvent.VK_LEFT) {
-            dx = -8;
+            dx = -7;
         }
         if (codigo == KeyEvent.VK_RIGHT) {
-            dx = 8;
+            dx = 7;
         }
     }
 
     public void keyReleased(KeyEvent tecla) { // verifica se alguma tecla foi despressionada
         int codigo = tecla.getKeyCode();
 
-        if (codigo == KeyEvent.VK_UP) {
+        if (codigo == KeyEvent.VK_UP || codigo == KeyEvent.VK_DOWN) {
             dy = 0;
         }
-        if (codigo == KeyEvent.VK_DOWN) {
-            dy = 0;
-        }
-        if (codigo == KeyEvent.VK_LEFT) {
-            dx = 0;
-        }
-        if (codigo == KeyEvent.VK_RIGHT) {
+        if (codigo == KeyEvent.VK_LEFT || codigo == KeyEvent.VK_RIGHT) {
             dx = 0;
         }
     }
@@ -106,16 +121,16 @@ public class Player { // classe do player
         int codigo = tecla.getKeyCode();
 
         if (codigo == KeyEvent.VK_UP) {
-            dy = -8;
+            dy = -6;
         }
         if (codigo == KeyEvent.VK_DOWN) {
-            dy = 8;
+            dy = 6;
         }
         if (codigo == KeyEvent.VK_LEFT) {
-            dx = -8;
+            dx = -7;
         }
         if (codigo == KeyEvent.VK_RIGHT) {
-            dx = 8;
+            dx = 7;
         }
     }
 
