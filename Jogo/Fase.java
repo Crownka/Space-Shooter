@@ -52,7 +52,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
         }
     }
 
-    public void reiniciar() {       // Reinicialize todas as variáveis necessárias para reiniciar o jogo
+    public void reiniciar() {   // Reinicialize todas as variáveis necessárias para reiniciar o jogo
         vidas.clear();
         enemy1.clear();
         InitVidas();
@@ -266,11 +266,17 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     private class TecladoAdapter extends KeyAdapter { // classe do teclado
         @Override
         public void keyPressed(KeyEvent e) { // verifica se alguma tecla foi pressionada
-            player.keyPressed(e);
+            if (ingame) {
+                player.keyPressed(e); // se o jogo está rodando, o player pode se mover
+            } else {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) { // se o jogo não está rodando, o jogo reinicia ao apertar enter
+                    reiniciar();
+                }
+            }
         }
-
+    
         @Override
-        public void keyReleased(KeyEvent e) { // verifica se alguma tecla foi despressionada
+        public void keyReleased(KeyEvent e) { // verifica se alguma tecla foi solta
             player.keyReleased(e);
         }
     }
