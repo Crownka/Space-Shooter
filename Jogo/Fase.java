@@ -1,17 +1,17 @@
 package Jogo;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 import Jogo.enemy.Enemy1;
 import Jogo.player.Player;
 import Jogo.player.Tiro;
 import Jogo.player.Vida;
 
-import javax.swing.*;
 
-import java.awt.event.*;
 
 public class Fase extends JPanel implements ActionListener { // classe da fase
 
@@ -97,40 +97,6 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
             estrelas.add(new Estrelas(x, y)); // cria o estrelas
         }
     }
-    
-    /*public void paint(Graphics g) { // desenha a fase
-        Graphics2D graficos = (Graphics2D) g;
-        if (ingame == true) {
-
-            graficos.drawImage(fundo, 0, 0, null); // desenha o fundo
-
-            for (int i = 0; i < estrelas.size(); i++) { // loop que desenha os estrelas
-                Estrelas st = estrelas.get(i);
-                st.load();
-                graficos.drawImage(st.getImagem(), st.getX(), st.getY(), this); // desenha o estrelas
-            }
-
-            graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this); // desenha o player
-    
-            List<Tiro> tiros = player.getTiros();
-            for (int i = 0; i < tiros.size(); i++) { // loop que desenha os tiros
-                Tiro t = tiros.get(i);
-                t.load();
-                graficos.drawImage(t.getImagem(), t.getX(), t.getY(), this);
-            }
-    
-            for (int i = 0; i < enemy1.size(); i++) { // loop que desenha os enemy1
-                Enemy1 in = enemy1.get(i);
-                in.load();
-                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this); // desenha o enemy1
-            }
-        } else {
-            ImageIcon fimJogo = new ImageIcon("files\\GameOver.png"); // imagem de fim de jogo
-            graficos.drawImage(fimJogo.getImage(), 0, 0, null); // desenha a imagem de fim de jogo
-        }
-
-        g.dispose();
-    }*/
 
     @Override
     public void paintComponent(Graphics g) { // desenha a fase

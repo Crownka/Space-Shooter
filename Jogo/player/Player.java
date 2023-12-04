@@ -99,10 +99,10 @@ public class Player { // classe do player
             dy = 6;
         }
         if (codigo == KeyEvent.VK_LEFT) {
-            dx = -7;
+            dx = -5;
         }
         if (codigo == KeyEvent.VK_RIGHT) {
-            dx = 7;
+            dx = 5;
         }
     }
 
@@ -127,10 +127,10 @@ public class Player { // classe do player
             dy = 6;
         }
         if (codigo == KeyEvent.VK_LEFT) {
-            dx = -7;
+            dx = -5;
         }
         if (codigo == KeyEvent.VK_RIGHT) {
-            dx = 7;
+            dx = 5;
         }
     }
 
