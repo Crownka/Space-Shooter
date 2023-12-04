@@ -235,7 +235,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
             if (ingame) {
                 player.keyPressed(e); // se o jogo está rodando, o player pode se mover
             } else {
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) { // se o jogo não está rodando, o jogo reinicia ao apertar enter
+                if (e.getKeyCode() == KeyEvent.VK_R) { // se o jogo não está rodando, o jogo reinicia ao apertar enter
                     reiniciar();
                 }
             }
