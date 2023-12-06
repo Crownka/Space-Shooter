@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Enemy {
-    
+
     private Image imagem; // imagem do Enemy
     private int x, y; // posição do Enemy
     private int largura, altura; // tamanho do Enemy

@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 public class Tiro {
-    
+
     private Image imagem; // imagem do tiro
     private int x, y; // posição do tiro
     private int largura, altura; // tamanho do tiro

@@ -6,13 +6,13 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 public class Estrelas {
-    
+
     private Image imagem; // imagem do Estrela
     private int x, y; // posição do Estrela
     private int largura, altura; // tamanho do Estrela (caso precise)
     private boolean isVisivel; // se o Estrela está visivel ou não
 
-    //private static final int LARGURA = 990; // até onde o Estrela pode ir
+    // private static final int LARGURA = 990; // até onde o Estrela pode ir
     private static int VELOCIDADE = 20; // velocidade do Estrela
 
     public Estrelas(int x, int y) { // construtor do Estrela
@@ -30,7 +30,7 @@ public class Estrelas {
     }
 
     public void update() { // atualiza a posição do Estrela
-        if (this.x < 0) { 
+        if (this.x < 0) {
             this.x = 1024; // se o Estrela passar da tela, ele volta para o começo
             Random a = new Random();
             int b = a.nextInt(500); // posição aleatória
@@ -43,7 +43,6 @@ public class Estrelas {
             this.x -= VELOCIDADE;
         }
     }
-
 
     // getters
 

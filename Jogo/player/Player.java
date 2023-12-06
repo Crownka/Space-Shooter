@@ -12,21 +12,21 @@ public class Player { // classe do player
     private int dx, dy;
     private int altura, largura;
     private Image imagem;
-    private List <Tiro> tiros; // lista dos tiros
-    private List <Vida> vidas; // lista das vidas
+    private List<Tiro> tiros; // lista dos tiros
+    private List<Vida> vidas; // lista das vidas
     private boolean isVisivel; // se o player está visivel ou não
 
     public Player() { // onde o player vai começar
         this.x = 80;
         this.y = 80;
         isVisivel = true;
-        
+
         tiros = new ArrayList<Tiro>();
         vidas = new ArrayList<Vida>();
 
         InitVidas(); // cria as vidas
     }
-    
+
     public void load() { // carrega a imagem do player
         ImageIcon referencia = new ImageIcon("files\\navePlayer.png");
         imagem = referencia.getImage();
@@ -38,7 +38,7 @@ public class Player { // classe do player
     private static final int VELOCIDADE_MAXIMA = 8;
     private static final double AMORTECIMENTO = 1.5;
 
-    public void update() { 
+    public void update() {
         // Aplica inércia
         dx *= AMORTECIMENTO;
         dy *= AMORTECIMENTO;
