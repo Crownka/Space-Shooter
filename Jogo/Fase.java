@@ -57,6 +57,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
         enemies.clear();
         InitVidas();
         InitEstrelas();
+        pontuacao = 0;
         ingame = true;
 
         for (int i = 0; i < 5; i++) {
@@ -146,7 +147,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
             // Pontuação final
             g.setColor(Color.RED);
-            g.setFont(new Font("Arial", Font.BOLD, 18));
+            g.setFont(new Font("Arial", Font.BOLD, 16));
             g.drawString("Pontuação: " + pontuacao, getWidth() - 150, 30);
         }
 
