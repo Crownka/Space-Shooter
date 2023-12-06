@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-import Jogo.enemy.Enemy1;
+import Jogo.Enemies.Enemy;
+import Jogo.Enemies.StrongEnemy;
 import Jogo.player.Player;
 import Jogo.player.Tiro;
 import Jogo.player.Vida;
@@ -19,8 +20,8 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     private Player player; // objeto do player
     private Timer timer; // velocidade do jogos
     private List<Vida> vidas; // lista das vidas
-    private List<Enemy1> enemy1; // lista dos enemy1
-    private List<Estrelas> estrelas; // lista dos enemy1
+    private List<Enemy> enemies; // Altere de Enemy para enemies
+    private List<Estrelas> estrelas; // lista dos Enemy
     private boolean ingame; // se o jogo está rodando ou não
     
     
@@ -40,7 +41,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
         timer.start(); // inicia o timer
         
         vidas = new ArrayList<Vida>(); // cria a lista das vidas
-        enemy1 = new ArrayList<Enemy1>(); // inicializa a lista dos enemy1
+        enemies = new ArrayList<Enemy>();
         
         InitVidas(); // cria as vidas no construtor da fase
         InitEstrelas(); // cria os estrelas no construtor da fase
@@ -54,7 +55,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
     public void reiniciar() {   // Reinicialize todas as variáveis necessárias para reiniciar o jogo
         vidas.clear();
-        enemy1.clear();
+        enemies.clear();
         InitVidas();
         InitEstrelas();
         ingame = true;
@@ -82,9 +83,19 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
     }
 
     private void criarInimigo() {
-        int x = (int) (Math.random() * 800 + 1024); // posição aleatória
-        int y = (int) (Math.random() * 650 + 30); // posição aleatória
-        enemy1.add(new Enemy1(x, y)); // cria o enemy1
+        int x = (int) (Math.random() * 800 + 1024);
+        int y = (int) (Math.random() * 650 + 30);
+    
+        // Polimorfismo: Enemy pode ser Enemy ou StrongEnemy
+        Enemy enemy;
+        if (Math.random() < 0.2) {
+            enemy = new StrongEnemy(x, y);
+        } else {
+            enemy = new Enemy(x, y, 1); // inimigo normal com 1 vida
+        }
+    
+        enemy.load();
+        enemies.add(enemy);
     }
 
     public void InitEstrelas() {
@@ -118,7 +129,7 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
                 g.drawImage(t.getImagem(), t.getX(), t.getY(), this);
             }
 
-            for (Enemy1 in : enemy1) { // loop que desenha os enemy1
+            for (Enemy in : enemies) { // loop que desenha os Enemy
                 in.load();
                 g.drawImage(in.getImagem(), in.getX(), in.getY(), this);
             }
@@ -162,71 +173,80 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
                 tiros.remove(i);
             }
         }
-    
-        List<Enemy1> inimigosARemover = new ArrayList<>(); // lista dos enemy1 a remover
-        for (Enemy1 in : enemy1) {
-            if (in.isVisivel()) {
-                in.update();
+
+        List<Enemy> enemiesToRemove = new ArrayList<>();
+        for (Enemy enemy : enemies) {
+            if (enemy.isVisivel()) {
+                enemy.update();
             } else {
-                inimigosARemover.add(in);
+                enemiesToRemove.add(enemy);
             }
         }
-    
-        enemy1.removeAll(inimigosARemover);
-        for (int i = 0; i < inimigosARemover.size(); i++) { // loop que cria os enemy1
-            criarInimigo();
-        }
-    
+
+    enemies.removeAll(enemiesToRemove);
+    for (int i = 0; i < 5 - enemies.size(); i++) {
+        criarInimigo();
+    }
+        
         checkCollisions();
         repaint();
     }
 
     // tive que mudar o nome da função para checkCollisions, pois a função checkCollision já existe na classe Rectangle
 
-    public void checkCollisions() { // verifica as colisões
-        Rectangle formaNave = player.getBounds(); // retangulo do player
-        Rectangle formaEnemy1; // retangulo do enemy1
-        Rectangle formaTiro; // retangulo do tiro
+    // ... (código existente)
 
-        for (int i = 0; i < enemy1.size(); i++) {
-            Enemy1 tempEnemy1 = enemy1.get(i); // pega o enemy1 da lista
-            formaEnemy1 = tempEnemy1.getBounds(); // retangulo do enemy1
+public void checkCollisions() { // verifica as colisões
+    Rectangle formaNave = player.getBounds(); // retângulo do player
+    Rectangle formaEnemy; // retângulo do Enemy
+    Rectangle formaTiro; // retângulo do tiro
 
-            if (formaNave.intersects(formaEnemy1)) { // verifica se o player colidiu com o enemy1
-                player.setVisivel(false); // se colidiu, o player fica invisivel
-                tempEnemy1.setVisivel(false); // se colidiu, o enemy1 fica invisivel
-                if (vidas.isEmpty()) {
-                    ingame = false; // O jogo para quando não há mais vidas
-                } else {
-                    // Continue o jogo, resetando a posição do player e inimigos
-                    player.setVisivel(true);
-                    player.setX(80);
-                    player.setY(80);
-                }
-                
+    for (int i = 0; i < enemies.size(); i++) {
+        Enemy tempEnemy = enemies.get(i); // pega o Enemy da lista
+        formaEnemy = tempEnemy.getBounds(); // retângulo do Enemy
 
-                if (!vidas.isEmpty()) { // se ainda tiver vidas
-                    vidas.remove(vidas.size() - 1); // remove uma vida
-                }
+        if (formaNave.intersects(formaEnemy)) { // verifica se o player colidiu com o Enemy
+            player.setVisivel(false); // se colidiu, o player fica invisível
+            tempEnemy.setVisivel(false); // se colidiu, o Enemy fica invisível
+            if (vidas.isEmpty()) {
+                ingame = false; // O jogo para quando não há mais vidas
+            } else {
+                // Continue o jogo, resetando a posição do player e inimigos
+                player.setVisivel(true);
+                player.setX(80);
+                player.setY(80);
+            }
+
+            if (!vidas.isEmpty()) { // se ainda tiver vidas
+                vidas.remove(vidas.size() - 1); // remove uma vida
             }
         }
+    }
 
-        List<Tiro> tiros = player.getTiros(); // lista dos tiros
-        for (int i = 0; i < tiros.size(); i++) {
-            Tiro tempTiro = tiros.get(i); // pega o tiro da lista
-            formaTiro = tempTiro.getBounds(); // retangulo do tiro
+    List<Tiro> tiros = player.getTiros(); // lista dos tiros
+    for (int i = 0; i < tiros.size(); i++) {
+        Tiro tempTiro = tiros.get(i); // pega o tiro da lista
+        formaTiro = tempTiro.getBounds(); // retângulo do tiro
 
-            for (int j = 0; j < enemy1.size(); j++) {
-                Enemy1 tempEnemy1 = enemy1.get(j); // pega o enemy1 da lista
-                formaEnemy1 = tempEnemy1.getBounds(); // retangulo do enemy1
+        for (int j = 0; j < enemies.size(); j++) {
+            Enemy tempEnemy = enemies.get(j); // pega o Enemy da lista
+            formaEnemy = tempEnemy.getBounds(); // retângulo do Enemy
 
-                if (formaTiro.intersects(formaEnemy1)) { // verifica se o tiro colidiu com o enemy1
-                    tempEnemy1.setVisivel(false); // se colidiu, o enemy1 fica invisivel
-                    tempTiro.setVisivel(false); // se colidiu, o tiro fica invisivel
+            if (formaTiro.intersects(formaEnemy)) { // verifica se o tiro colidiu com o Enemy
+                tempEnemy.diminuirVida(); // Diminui a vida do inimigo
+                tempTiro.setVisivel(false); // se colidiu, o tiro fica invisível
+
+                if (!tempEnemy.isVisivel()) {
+                    // Se o inimigo ficou invisível após ser atingido, cria um novo inimigo
+                    enemies.remove(j);
+                    criarInimigo();
                 }
             }
         }
     }
+}
+
+    
     
 
     private class TecladoAdapter extends KeyAdapter { // classe do teclado
