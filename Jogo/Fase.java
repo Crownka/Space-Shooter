@@ -140,11 +140,12 @@ public class Fase extends JPanel implements ActionListener { // classe da fase
 
             desenharVidas(g);
         } else {
+            // Game Over
             ImageIcon fimJogo = new ImageIcon("files\\GameOver.png");
             g.drawImage(fimJogo.getImage(), 0, 0, null);
 
             // Pontuação final
-            g.setColor(Color.WHITE);
+            g.setColor(Color.RED);
             g.setFont(new Font("Arial", Font.BOLD, 18));
             g.drawString("Pontuação: " + pontuacao, getWidth() - 150, 30);
         }

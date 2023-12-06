@@ -1,6 +1,4 @@
-Space Shooter
-
-(relatório aqui)
+Anotações sobre mudanças e implementações
 
 
 1 - Sobre o metodo Paint e PaintComponent(Da Classe Fase)
