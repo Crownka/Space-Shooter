@@ -47,7 +47,7 @@ public class Enemy {
         return new Rectangle(x, y, largura, altura);
     }
 
-    // getters
+    // getters e setters
 
     public boolean isVisivel() {
         return isVisivel;
